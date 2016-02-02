@@ -1,21 +1,19 @@
 Charneux Dimitri
 Leprêtre Rémy
 
-Doit contenir :
-- ce que vous n'avez pas fait (et pourquoi). Précisez explicitement "tout à été fait et fonctionne parfaitement" si c'est le cas.
-- difficultés rencontrées.
-- commentaires éventuels sur le TP (points à éclaircir, longueur du sujet, etc). 
+
+Tout à été fait et fonctionne parfaitement et nous n'avons pas rencontré de difficultés particulières.
 
 
 Q8/
 Quel est le rôle d’un VBO ?
-Il sert à copier les données de l'application dans les buffers d'OpenGL
+Il sert à copier les données de l'application dans les buffers d'OpenGL. Plus concrètement, c'est une méthode qui permet d'envoyer les données de l'application à la carte graphique pour que celle-ci ne doit pas aller chercher les données dans la RAM ce qui prendrait plus de temps.
 
 d’un VAO ?
-Le VAO sert à faire le lien entre les attributs des shaders et les VBO
+Un VAO permet de faire le lien entre les attributs du vertex shader et les VBOs utilisés par ces attributs.
 
 d’un Program Shader ?
-IL sert à compiler et linker les shaders
+Le Progam Sharder est un programme exécuter par la carte graphique qui sert à calculer les pixels de l'image.
 
 
 Q9/ 
@@ -23,7 +21,7 @@ voir Q9.jpg
 
 
 Q11/
-La notion de varying est le calcul effectué entre le vertex shader (avec out) et le fragment shader (avec in).
+L'interpolation linéaire est utilisé pour calculer les couleurs d'un pixel. La couleur de chaque pixel sera calculé en fesant une variation de couleur entre les 3 points constituant le triagle. Les variables varying sont calculées entre le vertex shader (avec out) et le fragment shader (avec in).
 
 
 Q13/
@@ -38,4 +36,10 @@ Q16/
 Les couleurs proviennent du fait que le sommet vert est utilisé 2 fois alors que précédemment, il y avait un sommet vert et un rouge.
 
 
+Q19/
+Avec GL_TRIANGLE_STRIP, les triangles sont tracés de la manière suivantes : le premier triangle est tracé avec les 3 premier points du tableau, ensuite, pour chaque points, un triangle va être tracé entre ce point et les 2 derniers points utilisé. Un tableau de 4 points produira donc 2 triangles alors qu'avec GT_TRIANGLE, il en faudrait 6. 
+
+
+Q27/
+Les coordonnées de textures associés à chaque sommet permettent de savoir, pour chaque sommet, à quel point de l'image il va correspondre. Chaque sommet pourra donc être associé à n'importe quel points de l'image.
 
