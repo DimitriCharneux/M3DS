@@ -2,12 +2,10 @@ Charneux Dimitri
 Lepretre Remy
 
 Doit contenir :
-- ce que vous n'avez pas fait (et pourquoi). Précisez explicitement "tout à été fait et fonctionne parfaitement" si c'est le cas.
-- difficultés rencontrées.
-- commentaires éventuels sur le TP (points à éclaircir, longueur du sujet, etc). 
+Tout à été fait et fonctionne parfaitement.
 
 Q7/
-Comme le premier triangle est caché par les autres, on ne voit pas de rouge dans l'image finale.
+Comme le premier triangle est déssiné avant les autres, on ne voit pas de rouge dans l'image finale.
 Concernant les parties verte et bleue,  on les dessinent avant le cyan pour que celui-ci aille cacher la partie droite de ces deux triangles.
 
 Q8/

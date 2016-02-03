@@ -10,7 +10,7 @@ GLApplication::~GLApplication() {
 
 GLApplication::GLApplication() {
 
-    _lightPosition.set(0,80,0);
+    _lightPosition.set(0,0,0);
 
     _basicMesh.initTetrahedron();
 
