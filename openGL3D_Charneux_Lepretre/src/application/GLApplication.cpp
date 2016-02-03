@@ -10,7 +10,7 @@ GLApplication::~GLApplication() {
 
 GLApplication::GLApplication() {
 
-    _lightPosition.set(0,0,0);
+    _lightPosition.set(0,80,0);
 
     _basicMesh.initTetrahedron();
 
@@ -20,6 +20,11 @@ GLApplication::GLApplication() {
     //_projection.setOrtho(-18,22,-10,30,5,100);
     //_projection.setOrtho(-5,2,-10,10,5,100);
     //_projection.setOrtho(-20,20,-20,20,5,1e8);
+
+    // _obj déjà déclaré en ObjLoader
+    _obj.readInit("cow.obj",Vector3(-10,-10,-30),Vector3(10,10,-10)); // reporte l'objet dans la boite d'extémités (-10,-10,-30)
+    _basicMesh.initObj(_obj); // pour remplacer l'initialisation du tétraèdre
+
 }
 
 
@@ -40,7 +45,8 @@ void GLApplication::initialize() {
 
 
     _shader.attribute("position",0);
-    _shader.attribute("color",1);
+    _shader.attribute("normal",1);
+
     _shader.read("openGL3D");
 
 
@@ -62,7 +68,7 @@ void GLApplication::update() {
     // avant l'affichage de la prochaine image (animation)
     // ...
 
-    _angle+=0.2;
+    _angle+=2;
 
     _transform.setTranslation(0,0,-15);
     _transform.rotate(_angle,Vector3(1,0.2,0));
@@ -82,6 +88,8 @@ void GLApplication::draw() {
     _basicMesh.draw();
     _shader.uniform("projection",_projection);
     _shader.uniform("transform",_transform);
+    _shader.uniform("lightPosition",_lightPosition);
+    _shader.uniform("diffuseColor", Vector3(0.2,0.8,0.2));
     glUseProgram(0);
 
     snapshot(); // capture opengl window if requested
