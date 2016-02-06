@@ -4,8 +4,12 @@ Lepretre Remy
 Doit contenir :
 Tout à été fait et fonctionne parfaitement.
 
+
+Q6/
+Les sommets doivent être dupliqués car un sommet ne peut pas avoir deux couleurs différentes. Pour les triangles de couleurs différents partageant le même sommet, ce sommet doit être dupliqué et chaque copie doit avoir la couleur d'un triangle.
+
 Q7/
-Comme le premier triangle est déssiné avant les autres, on ne voit pas de rouge dans l'image finale.
+Comme le premier triangle est dessiné avant les autres, on ne voit pas de rouge dans l'image finale.
 Concernant les parties verte et bleue,  on les dessinent avant le cyan pour que celui-ci aille cacher la partie droite de ces deux triangles.
 
 Q8/
@@ -24,3 +28,10 @@ On modifie les coordonnées minimale et maximale de x et y ce qui nous permet de
 Q16/
 Pour un cube avec une couleur par face il faudrait 24 sommets
 
+Q26/
+Pour réactiver l'animation, on a du appliqué l'éclairement avec les positions et les normales transformées avec les lignes suivantes : 
+
+vec4 N = transform*vec4(normal,0), L = transform * vec4(lightPosition,0) -vec4(position, 0);
+    N=normalize(N);
+    L=normalize(L);
+    float intensity = max(dot(N,L),0.0);
