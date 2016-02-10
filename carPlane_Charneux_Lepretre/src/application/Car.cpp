@@ -95,8 +95,13 @@ void Car::drawBody() {
 
 void Car::draw() {
   p3d::modelviewMatrix.push();
+  p3d::modelviewMatrix.rotate(_rotateWheel,0,0,1);
   drawAxle();
+  p3d::modelviewMatrix.pop();
+
+  p3d::modelviewMatrix.push();
   p3d::modelviewMatrix.translate(8,0,0);
+  p3d::modelviewMatrix.rotate(_rotateWheel,0,0,1);
   drawAxle();
   p3d::modelviewMatrix.pop();
 
