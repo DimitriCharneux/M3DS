@@ -23,28 +23,125 @@ Car::Car() {
 // ******************************************************************
 // méthodes à compléter lors du TP
 void Car::drawRim() {
+    p3d::modelviewMatrix.push();
+    p3d::modelviewMatrix.rotate(90,1.0,0.0,0.0);
+    p3d::modelviewMatrix.scale(0.1,0.1,1);
+    p3d::diffuseColor=Vector3(0.5,0,0.5);
+    drawCylinder();
+    p3d::modelviewMatrix.pop();
 
+    p3d::modelviewMatrix.push();
+    p3d::modelviewMatrix.rotate(90,0.0,1.0,0.0);
+    p3d::modelviewMatrix.scale(0.1,0.1,1);
+    p3d::diffuseColor=Vector3(0.5,0,0.5);
+    drawCylinder();
+    p3d::modelviewMatrix.pop();
+
+    p3d::modelviewMatrix.push();
+    p3d::modelviewMatrix.rotate(-90,1.0,0.0,0.0);
+    p3d::modelviewMatrix.scale(0.1,0.1,1);
+    p3d::diffuseColor=Vector3(0.5,0.0,0.5);
+    drawCylinder();
+    p3d::modelviewMatrix.pop();
+
+    p3d::modelviewMatrix.push();
+    p3d::modelviewMatrix.rotate(-90,0.0,1.0,0.0);
+    p3d::modelviewMatrix.scale(0.1,0.1,1);
+    p3d::diffuseColor=Vector3(0.5,0.0,0.5);
+    drawCylinder();
+    p3d::modelviewMatrix.pop();
+
+    p3d::modelviewMatrix.push();
+    p3d::modelviewMatrix.rotate(90,1.0,0.0,0.0);
+    p3d::modelviewMatrix.rotate(45,0.0,1.0,0.0);
+    p3d::modelviewMatrix.scale(0.1,0.1,1);
+    p3d::diffuseColor=Vector3(0,0.5,0.0);
+    drawCylinder();
+    p3d::modelviewMatrix.pop();
+
+    p3d::modelviewMatrix.push();
+    p3d::modelviewMatrix.rotate(90,1.0,0.0,0.0);
+    p3d::modelviewMatrix.rotate(-45,0.0,1.0,0.0);
+    p3d::modelviewMatrix.scale(0.1,0.1,1);
+    p3d::diffuseColor=Vector3(0,0.5,0.0);
+    drawCylinder();
+    p3d::modelviewMatrix.pop();
+
+    p3d::modelviewMatrix.push();
+    p3d::modelviewMatrix.rotate(90,1.0,0.0,0.0);
+    p3d::modelviewMatrix.rotate(135,0.0,1.0,0.0);
+    p3d::modelviewMatrix.scale(0.1,0.1,1);
+    p3d::diffuseColor=Vector3(0,0.5,0.0);
+    drawCylinder();
+    p3d::modelviewMatrix.pop();
+
+    p3d::modelviewMatrix.push();
+    p3d::modelviewMatrix.rotate(90,1.0,0.0,0.0);
+    p3d::modelviewMatrix.rotate(-135,0.0,1.0,0.0);
+    p3d::modelviewMatrix.scale(0.1,0.1,1);
+    p3d::diffuseColor=Vector3(0,0.5,0.0);
+    drawCylinder();
+    p3d::modelviewMatrix.pop();
 }
 
 void Car::drawWheel() {
+    p3d::modelviewMatrix.push();
+    p3d::modelviewMatrix.rotate(_rotateWheel,0,0,1);
+    drawRim();
+    p3d::modelviewMatrix.pop();
+
+    p3d::modelviewMatrix.push();
+    p3d::modelviewMatrix.scale(1.1,1.1,1.1);
+    p3d::diffuseColor=Vector3(0,0,1);
+    drawTorus();
+    p3d::modelviewMatrix.pop();
 
 }
 
-void Car::drawAxle() {
 
+//TODO dessiner tout l'essieu par rapport au centre pour pourvoir tourner les roues avec q et d
+void Car::drawAxle() {
+    p3d::modelviewMatrix.push();
+    drawWheel();
+    p3d::modelviewMatrix.pop();
+
+
+    p3d::modelviewMatrix.push();
+    p3d::modelviewMatrix.scale(0.15,0.15,5.0);
+    p3d::diffuseColor=Vector3(0.5,0.5,0);
+    drawCylinder();
+    p3d::modelviewMatrix.pop();
+
+    p3d::modelviewMatrix.push();
+    p3d::modelviewMatrix.translate(0.0,0.0,5.0);
+    drawWheel();
+    p3d::modelviewMatrix.pop();
 }
 
 void Car::drawBody() {
-
+    p3d::modelviewMatrix.scale(2,1);
+    p3d::diffuseColor=Vector3(0,0.5,0.5);
+    drawCube();
+    p3d::modelviewMatrix.scale(0.5,2);
+    p3d::modelviewMatrix.translate(3.0,0.5,0.0);
+    drawCube();
 }
 
 void Car::draw() {
   p3d::modelviewMatrix.push();
+  p3d::modelviewMatrix.rotate(_steering,0,1,0);
+  drawAxle();
+  p3d::modelviewMatrix.pop();
 
+  p3d::modelviewMatrix.push();
+  p3d::modelviewMatrix.translate(1.7,1.0,2.5);
+  p3d::modelviewMatrix.scale(1.7,1,2);
+  drawBody();
+  p3d::modelviewMatrix.pop();
 
-  drawCube();
-
-
+  p3d::modelviewMatrix.push();
+  p3d::modelviewMatrix.translate(7.0,0.0,0.0);
+  drawAxle();
   p3d::modelviewMatrix.pop();
 }
 
