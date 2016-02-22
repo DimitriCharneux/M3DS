@@ -57,6 +57,7 @@ void Car::drawRim() {
 
 void Car::drawWheel() {
     p3d::modelviewMatrix.push();
+    p3d::modelviewMatrix.rotate(_rotateWheel,0,0,1);
     drawRim();
     p3d::modelviewMatrix.pop();
 
@@ -95,13 +96,12 @@ void Car::drawBody() {
 
 void Car::draw() {
   p3d::modelviewMatrix.push();
-  p3d::modelviewMatrix.rotate(_rotateWheel,0,0,1);
   drawAxle();
   p3d::modelviewMatrix.pop();
 
   p3d::modelviewMatrix.push();
   p3d::modelviewMatrix.translate(8,0,0);
-  p3d::modelviewMatrix.rotate(_rotateWheel,0,0,1);
+  p3d::modelviewMatrix.rotate(_steering, 0,1,0);
   drawAxle();
   p3d::modelviewMatrix.pop();
 
@@ -115,9 +115,9 @@ void Car::draw() {
 
 
 void Car::drawWorld() {
-
   p3d::modelviewMatrix.push();
-
+  p3d::modelviewMatrix.rotate(_orientation);
+  p3d::modelviewMatrix.translate(_position);
   draw(); // tracé de la voiture dans son repère local
   p3d::modelviewMatrix.pop();
 }
@@ -125,11 +125,11 @@ void Car::drawWorld() {
 void Car::move() {
   _acceleration+=-_velocity/50;
   _velocity+=_acceleration;
-  _rotateWheel+=_velocity*20;
+  _rotateWheel+=_velocity*5;
   _steering-=_steering/10*fabs(_velocity);
 
   _orientation.rotate(_steering*_velocity/(1.0+fabs(_velocity)),Vector3(0,1,0)); // le /(1.0+fabs(_velocity)) a été déterminé empiriquement
-
+  _position= _position+(_orientation * Vector3(1,0,0)*_velocity);
 }
 
 
