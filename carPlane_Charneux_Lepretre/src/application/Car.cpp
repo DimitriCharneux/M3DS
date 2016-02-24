@@ -23,65 +23,21 @@ Car::Car() {
 // ******************************************************************
 // méthodes à compléter lors du TP
 void Car::drawRim() {
-    p3d::modelviewMatrix.push();
-    p3d::modelviewMatrix.rotate(90,1.0,0.0,0.0);
-    p3d::modelviewMatrix.scale(0.1,0.1,1);
-    p3d::diffuseColor=Vector3(0.5,0,0.5);
-    drawCylinder();
-    p3d::modelviewMatrix.pop();
+    int i = 0;
+    for(i=0; i<8; i++){
+        p3d::modelviewMatrix.push();
+        p3d::modelviewMatrix.rotate(90,1.0,0.0,0.0);
+        p3d::modelviewMatrix.rotate(i*45,0.0,1.0,0.0);
+        p3d::modelviewMatrix.scale(0.1,0.1,1);
+        if(i%2 == 0)
+            p3d::diffuseColor=Vector3(0,0.5,0.0);
+        else
+            p3d::diffuseColor=Vector3(0.5,0,0.5);
+        drawCylinder();
+        p3d::modelviewMatrix.pop();
+    }
 
-    p3d::modelviewMatrix.push();
-    p3d::modelviewMatrix.rotate(90,0.0,1.0,0.0);
-    p3d::modelviewMatrix.scale(0.1,0.1,1);
-    p3d::diffuseColor=Vector3(0.5,0,0.5);
-    drawCylinder();
-    p3d::modelviewMatrix.pop();
 
-    p3d::modelviewMatrix.push();
-    p3d::modelviewMatrix.rotate(-90,1.0,0.0,0.0);
-    p3d::modelviewMatrix.scale(0.1,0.1,1);
-    p3d::diffuseColor=Vector3(0.5,0.0,0.5);
-    drawCylinder();
-    p3d::modelviewMatrix.pop();
-
-    p3d::modelviewMatrix.push();
-    p3d::modelviewMatrix.rotate(-90,0.0,1.0,0.0);
-    p3d::modelviewMatrix.scale(0.1,0.1,1);
-    p3d::diffuseColor=Vector3(0.5,0.0,0.5);
-    drawCylinder();
-    p3d::modelviewMatrix.pop();
-
-    p3d::modelviewMatrix.push();
-    p3d::modelviewMatrix.rotate(90,1.0,0.0,0.0);
-    p3d::modelviewMatrix.rotate(45,0.0,1.0,0.0);
-    p3d::modelviewMatrix.scale(0.1,0.1,1);
-    p3d::diffuseColor=Vector3(0,0.5,0.0);
-    drawCylinder();
-    p3d::modelviewMatrix.pop();
-
-    p3d::modelviewMatrix.push();
-    p3d::modelviewMatrix.rotate(90,1.0,0.0,0.0);
-    p3d::modelviewMatrix.rotate(-45,0.0,1.0,0.0);
-    p3d::modelviewMatrix.scale(0.1,0.1,1);
-    p3d::diffuseColor=Vector3(0,0.5,0.0);
-    drawCylinder();
-    p3d::modelviewMatrix.pop();
-
-    p3d::modelviewMatrix.push();
-    p3d::modelviewMatrix.rotate(90,1.0,0.0,0.0);
-    p3d::modelviewMatrix.rotate(135,0.0,1.0,0.0);
-    p3d::modelviewMatrix.scale(0.1,0.1,1);
-    p3d::diffuseColor=Vector3(0,0.5,0.0);
-    drawCylinder();
-    p3d::modelviewMatrix.pop();
-
-    p3d::modelviewMatrix.push();
-    p3d::modelviewMatrix.rotate(90,1.0,0.0,0.0);
-    p3d::modelviewMatrix.rotate(-135,0.0,1.0,0.0);
-    p3d::modelviewMatrix.scale(0.1,0.1,1);
-    p3d::diffuseColor=Vector3(0,0.5,0.0);
-    drawCylinder();
-    p3d::modelviewMatrix.pop();
 }
 
 void Car::drawWheel() {
@@ -95,25 +51,25 @@ void Car::drawWheel() {
     p3d::diffuseColor=Vector3(0,0,1);
     drawTorus();
     p3d::modelviewMatrix.pop();
-
 }
 
-
-//TODO dessiner tout l'essieu par rapport au centre pour pourvoir tourner les roues avec q et d
 void Car::drawAxle() {
+
     p3d::modelviewMatrix.push();
+    p3d::modelviewMatrix.translate(0.0,0.0,-2.5);
     drawWheel();
     p3d::modelviewMatrix.pop();
 
 
     p3d::modelviewMatrix.push();
+    p3d::modelviewMatrix.translate(0.0,0.0,-2.5);
     p3d::modelviewMatrix.scale(0.15,0.15,5.0);
     p3d::diffuseColor=Vector3(0.5,0.5,0);
     drawCylinder();
     p3d::modelviewMatrix.pop();
 
     p3d::modelviewMatrix.push();
-    p3d::modelviewMatrix.translate(0.0,0.0,5.0);
+    p3d::modelviewMatrix.translate(0.0,0.0,2.5);
     drawWheel();
     p3d::modelviewMatrix.pop();
 }
@@ -134,7 +90,7 @@ void Car::draw() {
   p3d::modelviewMatrix.pop();
 
   p3d::modelviewMatrix.push();
-  p3d::modelviewMatrix.translate(1.7,1.0,2.5);
+  p3d::modelviewMatrix.translate(1.7,1.0,0.0);
   p3d::modelviewMatrix.scale(1.7,1,2);
   drawBody();
   p3d::modelviewMatrix.pop();
@@ -149,7 +105,8 @@ void Car::draw() {
 void Car::drawWorld() {
 
   p3d::modelviewMatrix.push();
-
+  p3d::modelviewMatrix.translate(_position);
+  p3d::modelviewMatrix.rotate(_orientation);
   draw(); // tracé de la voiture dans son repère local
   p3d::modelviewMatrix.pop();
 }
@@ -159,9 +116,8 @@ void Car::move() {
   _velocity+=_acceleration;
   _rotateWheel+=_velocity*20;
   _steering-=_steering/10*fabs(_velocity);
-
   _orientation.rotate(_steering*_velocity/(1.0+fabs(_velocity)),Vector3(0,1,0)); // le /(1.0+fabs(_velocity)) a été déterminé empiriquement
-
+  _position= _position+(_orientation * Vector3(-1,0,0)*_velocity);
 }
 
 
