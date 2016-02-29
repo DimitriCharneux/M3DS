@@ -30,44 +30,54 @@ void Revolution::initSphere() {
     vector<unsigned int> index;
 
     int nbSlice=20; // include last slice that closes sphere
-    int nbStack=20;
+    int nbStack=10;
 
     // *******
-    for(double cptStack = 0; cptStack<=M_PI;cptStack += M_PI/nbStack){
+    /*for(double cptStack = 0; cptStack<=M_PI;cptStack += M_PI/nbStack){
         for(double cptSlice = 0; cptSlice<2*M_PI; cptSlice += (2*M_PI)/nbSlice){
             p.push_back(cos(cptSlice) * sin(cptStack));
             p.push_back(cos(cptStack));
             p.push_back(sin(cptSlice) * sin(cptStack));
         }
-    }
-
-    for(int i = 0; i<nbStack; i++){
-        for(int j = 0; j<nbSlice; j++){
-            index.push_back(j + (i*nbStack) + nbStack);
-            index.push_back(j + (i*nbStack));
-            index.push_back(j+ 1+ (i*nbStack));
-            index.push_back(j+ 1+ (i*nbStack));
-            index.push_back(j + (i*nbStack) + nbStack + 1);
-            index.push_back(j + (i*nbStack) + nbStack);
-        }
-        /*index.push_back(nbSlice + (i*nbStack) + nbStack -1);
-        index.push_back(nbSlice + (i*nbStack)-1);
-        index.push_back(1+ (i*nbStack));
-        index.push_back(1+ (i*nbStack));
-        index.push_back((i*nbStack) + nbStack + 1);
-        index.push_back((i*nbStack) + nbStack);*/
-
-    }
-
-    /*for(int i = 0; i<= (nbSlice) * (nbStack)-2; i++){
-        index.push_back(i+nbSlice);
-        index.push_back(i);
-        index.push_back(i+1);
-        index.push_back(i+1);
-        index.push_back(i+nbSlice +1);
-        index.push_back(i+nbSlice);
     }*/
 
+    float cptSlice = 0, cptStack = 0;
+    for(int i=0; i<=nbStack; i++){
+        cptSlice = 0;
+        for(int j=0; j<=nbSlice; j++){
+            p.push_back(cos(cptSlice) * sin(cptStack));
+            p.push_back(cos(cptStack));
+            p.push_back(sin(cptSlice) * sin(cptStack));
+
+            n.push_back(cos(cptSlice) * sin(cptStack));
+            n.push_back(cos(cptStack));
+            n.push_back(sin(cptSlice) * sin(cptStack));
+
+            t.push_back(1 - (cptSlice / (2*M_PI)));
+            t.push_back(1 - (cptStack/M_PI));
+
+            cptSlice += (2*M_PI)/nbSlice;
+        }
+        cptStack += M_PI/(nbStack-1);
+    }
+
+    int bg, bd, hg, hd;
+    for(int i = 0; i<nbStack; i++){
+        for(int j = 0; j<nbSlice; j++){
+            bg = j + i*nbSlice;
+            bd = j+1 + i*nbSlice;
+            hg = bg + nbSlice +1;
+            hd = bd + nbSlice +1;
+
+
+            index.push_back(hg);
+            index.push_back(bg);
+            index.push_back(bd);
+            index.push_back(bd);
+            index.push_back(hd);
+            index.push_back(hg);
+        }
+    }
 
     // *******
 
@@ -114,22 +124,25 @@ void Revolution::initRevolution() {
 
     vector<unsigned int> index;
 
-    int nbSlice=40; // include last slice that closes the object
+    int nbSlice=4; // include last slice that closes the object
     int nbStack=_profile.size();
 
     std::vector<Vector3> normalProfile; // to compute normal profile
 
     // *******
-    //  TODO
-
-
+    float cptSlice = 0;
+    for(int i=0; i<=nbSlice; i++){
+        for(int j=0; j<=nbStack; j++){
+            Vector3 tmp = _profile[j].rotationY(cptSlice);
+            p.push_back(tmp.x());
+            p.push_back(tmp.y());
+            p.push_back(tmp.z());
+        }
+        cptSlice += (2*M_PI)/nbSlice;
+    }
 
 
     // *******
-
-
-
-
 
     initVAO(index,p,n,t);
     _texture=&_ul1;

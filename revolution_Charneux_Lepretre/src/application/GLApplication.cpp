@@ -94,7 +94,7 @@ void GLApplication::resize(int width,int height) {
   _camera.frustum(-0.01*ratio,0.01*ratio,-0.01,0.01,0.03,100.0);
 
   _cameraInput.viewport(0,0,width,height);
-  _cameraInput.ortho(-1*ratio,1*ratio,-1,1,-1,1);
+  _cameraInput.ortho(-1*ratio,1*ratio,-1,1,0,1);
 }
 
 
