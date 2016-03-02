@@ -37,7 +37,17 @@ void WFace::draw(bool withNormal) {
   normal.clear();
 
   // TODO : compléter
-
+  do {
+      if(this == e->left()) {
+          position.push_back(e->end()->position());
+          e = e->succLeft();
+      }
+      else {
+          position.push_back(e->begin()->position());
+          e = e->succRight();
+      }
+  }while(start != e);
+  printf("final\n");
 
 
   // A Laisser à la fin (effectue un affichage polygone par polygone : lent => uniquement pour vérification/TP)

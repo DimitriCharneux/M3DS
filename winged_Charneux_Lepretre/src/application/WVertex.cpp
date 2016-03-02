@@ -34,7 +34,10 @@ void WVertex::computeNormal() {
   Vector3 average(0,0,0); // à calculer
 
   // TODO : compléter
-
+  WEdge * firstEdge = this->edge();
+  WFace * firstFace = firstEdge->left();
+  average += average;
+  average /2;
 
 
   // A LAISSER à la fin
