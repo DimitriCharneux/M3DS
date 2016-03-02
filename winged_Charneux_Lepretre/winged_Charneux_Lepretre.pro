@@ -34,9 +34,6 @@ unix:!macx:with_glew {
     PKGCONFIG += glew
 }
 
-#INCLUDEPATH += /usr/include/GL/
-#LIBS += /usr/lib/x86_64-linux-gnu/libGLEW.so.1.10
-
 # mac os config : ** not tested **
   macx {
     INCLUDEPATH += /opt/local/include/ /usr/include/ /usr/local/Cellar/glew/1.13.0/include/ # dernier si homebrew, si mac port rien à ajouter
@@ -58,63 +55,71 @@ LIBS+=-lglew32s
 }
 
 
-INCLUDEPATH += src/application/ src/p3d/render/ src/p3d/gui/ src/p3d/algebra/ src/p3d/scene/ 
-DEPENDPATH += src/application/ src/p3d/render/ src/p3d/gui/ src/p3d/algebra/ src/p3d/scene/ 
+INCLUDEPATH += src/application/ src/p3d/render/ src/p3d/scene/ src/p3d/gui/ src/p3d/algebra/ 
+DEPENDPATH += src/application/ src/p3d/render/ src/p3d/scene/ src/p3d/gui/ src/p3d/algebra/ 
 
 SOURCES += \
 	src/application/GLApplication.cpp \
-	src/application/Car.cpp \
-	src/p3d/render/GLRender.cpp \
-	src/p3d/gui/Tools.cpp \
-	src/p3d/algebra/Vector3.cpp \
-	src/p3d/algebra/Quaternion.cpp \
-	src/p3d/algebra/Vector4.cpp \
-	src/p3d/algebra/Vector2.cpp \
-	src/p3d/algebra/Matrix4.cpp \
-	src/p3d/algebra/Matrix3.cpp \
-	src/p3d/render/Shader.cpp \
 	src/p3d/render/GLTool.cpp \
 	src/p3d/scene/Camera.cpp \
+	src/p3d/gui/Tools.cpp \
+	src/p3d/algebra/Vector2.cpp \
 	src/p3d/scene/Object3D.cpp \
+	src/p3d/algebra/Quaternion.cpp \
 	src/p3d/algebra/Line.cpp \
 	src/p3d/algebra/Plane.cpp \
 	src/p3d/render/VertexArray.cpp \
+	src/p3d/algebra/Vector4.cpp \
+	src/p3d/algebra/Vector3.cpp \
+	src/p3d/algebra/Matrix4.cpp \
+	src/p3d/algebra/Matrix3.cpp \
+	src/p3d/render/Shader.cpp \
 	src/p3d/gui/GLText.cpp \
 	src/p3d/render/GLPrimitive.cpp \
 	src/p3d/render/Texture.cpp \
-	src/application/Airplane.cpp \
+	src/p3d/render/GLRender.cpp \
+	src/application/Winged.cpp \
+	src/application/WingedMap.cpp \
 	src/p3d/scene/Mesh.cpp \
 	src/p3d/scene/MeshGL.cpp \
+	src/application/WFace.cpp \
+	src/application/WEdge.cpp \
+	src/application/WVertex.cpp \
 	src/p3d/gui/GLWidget.cpp \
 	src/p3d/gui/main.cpp \
 	src/p3d/gui/MainWindow.cpp
 HEADERS += \
 	src/p3d/gui/Tools.h \
-	src/p3d/gui/glsupport.h \
-	src/p3d/algebra/Quaternion.h \
-	src/p3d/algebra/Vector4.h \
 	src/p3d/algebra/Vector2.h \
-	src/p3d/algebra/Vector3.h \
-	src/p3d/algebra/Matrix4.h \
-	src/p3d/algebra/Matrix3.h \
-	src/p3d/render/Shader.h \
-	src/p3d/render/GLRender.h \
-	src/application/Car.h \
+	src/p3d/gui/glsupport.h \
 	src/p3d/scene/Camera.h \
+	src/p3d/algebra/Quaternion.h \
 	src/p3d/scene/Object3D.h \
 	src/p3d/algebra/Plane.h \
 	src/p3d/algebra/Line.h \
 	src/p3d/render/VertexArray.h \
+	src/p3d/algebra/Vector4.h \
+	src/p3d/algebra/Vector3.h \
+	src/p3d/algebra/Matrix3.h \
+	src/p3d/algebra/Matrix4.h \
+	src/p3d/render/Shader.h \
 	src/p3d/render/GLTool.h \
 	src/p3d/gui/GLText.h \
 	src/p3d/render/GLPrimitive.h \
 	src/p3d/render/Texture.h \
+	src/p3d/render/GLRender.h \
 	src/application/GLApplication.h \
-	src/application/Airplane.h \
+	src/application/WingedMap.h \
 	src/p3d/scene/MeshGL.h \
 	src/p3d/scene/Mesh.h \
+	src/application/Winged.h \
+	src/application/WFace.h \
+	src/application/WEdge.h \
+	src/application/WVertex.h \
 	src/p3d/gui/GLWidget.h \
 	src/p3d/gui/MainWindow.h
 OTHER_FILES +=\
-	media/cessna.obj\
+	media/002_cube.obj\
+	media/al.obj\
+	media/cow.obj\
 	media/mosaic_pierre.jpg

@@ -187,10 +187,10 @@ void GLApplication::updateCamera() {
     case Camera_Follow_Plane: {
         Quaternion orientation = _airplane.orientation();
         Vector3 position = _airplane.position();
-        _camera.position(position+(position * Vector3(0,1,-3)));
-        orientation.rotate(180,1,1,0);
-        orientation.rotate(-90,0,0,1);
-        _camera.orientation(orientation);
+        _camera.position(position + Vector3(0,1,-3));
+        /*orientation.rotate(180,1,1,0);
+        orientation.rotate(-90,0,0,1);*/
+        _camera.orientation(180,Vector3(0,1,0));
 
       }
       break;
