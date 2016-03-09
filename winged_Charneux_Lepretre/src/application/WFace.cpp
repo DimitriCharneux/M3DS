@@ -39,15 +39,16 @@ void WFace::draw(bool withNormal) {
   // TODO : compléter
   do {
       if(this == e->left()) {
+          normal.push_back(e->end()->normal());
           position.push_back(e->end()->position());
           e = e->succLeft();
       }
       else {
+          normal.push_back(e->begin()->normal());
           position.push_back(e->begin()->position());
           e = e->succRight();
       }
   }while(start != e);
-  printf("final\n");
 
 
   // A Laisser à la fin (effectue un affichage polygone par polygone : lent => uniquement pour vérification/TP)

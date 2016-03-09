@@ -35,9 +35,26 @@ void WVertex::computeNormal() {
 
   // TODO : compléter
   WEdge * firstEdge = this->edge();
-  WFace * firstFace = firstEdge->left();
-  average += average;
-  average /2;
+  WEdge * currentEdge = firstEdge;
+  WFace * currentFace;
+  int cpt = 0;
+
+  do{
+      if(this == currentEdge->begin()){
+          if(currentEdge->left() != NULL) {
+            currentFace = currentEdge->left();
+            currentEdge = currentEdge->predLeft();
+          }else break;
+      }else{
+          if(currentEdge->right() != NULL) {
+            currentFace = currentEdge->right();
+            currentEdge = currentEdge->predRight();
+          }else break;
+      }
+        cpt++;
+      average += currentFace->normal();
+  }while(currentEdge != firstEdge);
+  average /= cpt;
 
 
   // A LAISSER à la fin
