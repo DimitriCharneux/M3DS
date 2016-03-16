@@ -49,13 +49,22 @@ Vector3 FaceBSP::intersection(const Vector3 &p1,const Vector3 &p2) const {
     /// - quelques opérateurs sur les Vector3 peuvent être utiles. Exemple : u=b-a, p=a+k*u, etc (avec a,b,p et u de type Vector3)
     /// - u1.dot(u2) : produit scalaire
 
+    Vector3 res;
+
+
     Vector3 p1p2(p1,p2);
-    double div = p1p2.dot(_normal);
-    if (fabs(div) < 0.01 ) return Vector3((p1.x()+p2.x())/2,(p1.y()+p2.y())/2,(p1.z()+p2.z())/2);
-    double k = (point(0).dot(_normal) - p1.dot(_normal)) / div;
-    if ( fabs(k) < 0.01) return p1;
-    Vector3 kp1p2 = k * p1p2;
-    Vector3 res = p1 + kp1p2;
+
+    //droite p1p2 scalaire la normale
+    double p1p1ScalN = p1p2.dot(_normal);
+    if (fabs(p1p1ScalN) < 0.01 )
+        return Vector3((p1.x()+p2.x())/2,(p1.y()+p2.y())/2,(p1.z()+p2.z())/2);
+
+    // k = (unPoint*normal - p1*normal) / p1p2*normal
+    double k = (point(0).dot(_normal) - p1.dot(_normal)) / p1p1ScalN;
+
+    if ( fabs(k) < 0.01)
+        return p1;
+    res = p1 + k * p1p2;
 
 
     return res;
