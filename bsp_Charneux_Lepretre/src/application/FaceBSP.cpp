@@ -49,18 +49,14 @@ Vector3 FaceBSP::intersection(const Vector3 &p1,const Vector3 &p2) const {
     /// - quelques opérateurs sur les Vector3 peuvent être utiles. Exemple : u=b-a, p=a+k*u, etc (avec a,b,p et u de type Vector3)
     /// - u1.dot(u2) : produit scalaire
 
-    Vector3 res;
+    Vector3 p1p2(p1,p2);
+    double div = p1p2.dot(_normal);
+    if (fabs(div) < 0.01 ) return Vector3((p1.x()+p2.x())/2,(p1.y()+p2.y())/2,(p1.z()+p2.z())/2);
+    double k = (point(0).dot(_normal) - p1.dot(_normal)) / div;
+    if ( fabs(k) < 0.01) return p1;
+    Vector3 kp1p2 = k * p1p2;
+    Vector3 res = p1 + kp1p2;
 
-    Vector3 A = _tabVertex[0]->point();
-    Vector3 Ap1 = p1 - A;
-    Vector3 p1p2 = p2 - p1;
-
-    double sAp1 = _normal.dot(Ap1);
-    double sp1p2 = _normal.dot(p1p2);
-
-    double k = fabs(sAp1)/fabs(sp1p2);
-
-    res = p1 + k*p1p2;
 
     return res;
 }
@@ -97,34 +93,30 @@ void FaceBSP::separe(const FaceBSP &f) {
         anc = tmp;
         tmp = _tabVertex[i];
         sign = f.sign(tmp->point());
-            if(sign == SIGN_MINUS){
-                if(f.sign(anc->point()) != sign){
-                    VertexBSP *inter=createVertex(f.intersection(_tabVertex[i-1]->point(),tmp->point()));
-                    inter->interpolateNormal(*_tabVertex[i-1],*tmp);
-                    vertexNegative.push_back(inter);
-                    vertexPositive.push_back(inter);
-                }
-                vertexNegative.push_back(tmp);
-            } else if(sign == SIGN_PLUS){
-                if(f.sign(anc->point()) != sign){
-                    VertexBSP *inter=createVertex(f.intersection(_tabVertex[i-1]->point(),tmp->point()));
-                    inter->interpolateNormal(*_tabVertex[i-1],*tmp);
-                    vertexNegative.push_back(inter);
-                    vertexPositive.push_back(inter);
-                }
-                vertexPositive.push_back(tmp);
+        if(sign != SIGN_NONE){
+            if(f.sign(anc->point()) != sign){
+                VertexBSP *inter=createVertex(f.intersection(_tabVertex[i-1]->point(),tmp->point()));
+                inter->interpolateNormal(*_tabVertex[i-1],*tmp);
+                vertexNegative.push_back(inter);
+                vertexPositive.push_back(inter);
             }
+        }
+        if(sign == SIGN_MINUS){
+            vertexNegative.push_back(tmp);
+        } else if(sign == SIGN_PLUS){
+            vertexPositive.push_back(tmp);
+        }
     }
     anc = tmp;
     tmp = _tabVertex[0];
 
     sign = f.sign(tmp->point());
-        if(f.sign(anc->point()) != sign){
-                VertexBSP *inter=createVertex(f.intersection(_tabVertex[_tabVertex.size()-1]->point(),tmp->point()));
-                inter->interpolateNormal(*_tabVertex[_tabVertex.size()-1],*tmp);
-                vertexNegative.push_back(inter);
-                vertexPositive.push_back(inter);
-        }
+    if(f.sign(anc->point()) != sign){
+        VertexBSP *inter=createVertex(f.intersection(_tabVertex[_tabVertex.size()-1]->point(),tmp->point()));
+        inter->interpolateNormal(*_tabVertex[_tabVertex.size()-1],*tmp);
+        vertexNegative.push_back(inter);
+        vertexPositive.push_back(inter);
+    }
 
 
 
