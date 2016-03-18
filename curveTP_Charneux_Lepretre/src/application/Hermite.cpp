@@ -19,19 +19,24 @@ using namespace std;
 * - on peut utiliser les opérateurs *, + entre les points et des doubles. Exemple : p=matrix[i]*_a+_b, ...
 **/
 Vector3 Hermite::eval(double t) {
-  // remplacer la matrice 4x4 identité suivante avec les valeurs correctes pour une courbe de Hermite (i.e. matrice de hermite; cf cours)
+    // remplacer la matrice 4x4 identité suivante avec les valeurs correctes pour une courbe de Hermite (i.e. matrice de hermite; cf cours)
 
-  double matrix[16]={1.0,0.0,0.0,0.0,
-                     0.0,1.0,0.0,0.0,
-                     0.0,0.0,1.0,0.0,
-                     0.0,0.0,0.0,1.0};
+    double matrix[16]={2.0,-2.0,1.0,1.0,
+                       -3.0,3.0,-2.0,-1.0,
+                       0.0,0.0,1.0,0.0,
+                       1.0,0.0,0.0,0.0};
 
-  Vector3 res(0,0,0);
-  // A COMPLETER : calculer le point P(t) en utilisant les 16 coefficients de la matrice (i.e. coder explicitement le produit (t^3 t^2 t 1) matrix G : cf cours; les classes du squelette ne permettent pas de le faire directement).
+    Vector3 res(0,0,0);
+    // A COMPLETER : calculer le point P(t) en utilisant les 16 coefficients de la matrice (i.e. coder explicitement le produit (t^3 t^2 t 1) matrix G : cf cours; les classes du squelette ne permettent pas de le faire directement).
+    Vector3 matG[4] = {_a,_b,_ta,_tb};
+    double produit[4] = {pow(t, 3),pow(t,2),t,1};
+    double produitFoisMatrix [4];
 
+    for(int i = 0; i<4; i++)
+        produitFoisMatrix[i] = produit[0] * matrix[i] + produit[1] * matrix[4+i] + produit[2] * matrix[8+i] + produit[3] * matrix[12 + i];
+    res = produitFoisMatrix[0] * matG[0] + produitFoisMatrix[1] * matG[1] + produitFoisMatrix[2] * matG[2] + produitFoisMatrix[3] * matG[3];
 
-
-  return res;
+    return res;
 }
 
 /**
@@ -42,7 +47,8 @@ void Hermite::draw() {
 
     // A COMPLETER : calculer 100 (par exemple) points successifs de la courbe pour décrire la courbe de hermite
     // on insère les points calculés dans le tableau lPoints par des lPoints.push_back(unVector3) (lPoints sera alors tracé à la fin de la méthode par l'appel, déjà présent, à p3d::drawThickLineStrip ).
-
+    for(int i = 0; i<100; i++)
+        lPoints.push_back(eval(i/100.0));
 
     p3d::drawThickLineStrip(lPoints);
 
@@ -51,12 +57,12 @@ void Hermite::draw() {
 
 /** **************************************************************************************** */
 Hermite::Hermite(const Vector3 &a,const Vector3 &na,const Vector3 &b,const Vector3 &nb) {
-  _a=a;
-  _b=b;
-  _ta=na;
-  _tb=nb;
+    _a=a;
+    _b=b;
+    _ta=na;
+    _tb=nb;
 
-  _nbInput=0;
+    _nbInput=0;
 }
 
 p3d::Vector3 *Hermite::interactPoint(unsigned int i) {
@@ -90,42 +96,42 @@ void Hermite::interactInsert(unsigned int i, const Vector3 &p) {
 }
 
 void Hermite::set(const Vector3 &a,const Vector3 &ta,const Vector3 &b,const Vector3 &tb) {
-  _a=a;
-  _b=b;
-  _ta=ta;
-  _tb=tb;
+    _a=a;
+    _b=b;
+    _ta=ta;
+    _tb=tb;
 }
 
 void Hermite::drawControl() {
-p3d::diffuseColor=Vector3(0,0,1);
-p3d::ambientColor=Vector4(0,0,1,1);
-glPointSize(5);
-switch(nbInput()) {
-case 4:
-    p3d::shaderLightPhong();
-    p3d::drawArrow(b(),tb()/5,0.01,"","T_B");
-case 3:
-    p3d::draw("B",b()+Vector3(0.02,0.02,0.0));
-    p3d::shaderVertexAmbient();
-    p3d::drawPoints(vector<Vector3>{b()});
-case 2:
-    p3d::shaderLightPhong();
-    p3d::drawArrow(a(),ta()/5,0.01,"","T_A");
-case 1:
-    p3d::draw("A",a()+Vector3(0.01,0.01,0.0));
-    p3d::shaderVertexAmbient();
-    p3d::drawPoints(vector<Vector3>{a()});
-}
+    p3d::diffuseColor=Vector3(0,0,1);
+    p3d::ambientColor=Vector4(0,0,1,1);
+    glPointSize(5);
+    switch(nbInput()) {
+    case 4:
+        p3d::shaderLightPhong();
+        p3d::drawArrow(b(),tb()/5,0.01,"","T_B");
+    case 3:
+        p3d::draw("B",b()+Vector3(0.02,0.02,0.0));
+        p3d::shaderVertexAmbient();
+        p3d::drawPoints(vector<Vector3>{b()});
+    case 2:
+        p3d::shaderLightPhong();
+        p3d::drawArrow(a(),ta()/5,0.01,"","T_A");
+    case 1:
+        p3d::draw("A",a()+Vector3(0.01,0.01,0.0));
+        p3d::shaderVertexAmbient();
+        p3d::drawPoints(vector<Vector3>{a()});
+    }
 }
 
 
 Hermite::Hermite() {
-  //ctor
-  _nbInput=0;
+    //ctor
+    _nbInput=0;
 
 }
 
 Hermite::~Hermite() {
-  //dtor
+    //dtor
 }
 
