@@ -33,7 +33,7 @@ void CatmullRomCurve::draw() {
 
     if (nbPoint()<2) return; // tracé uniquement si plus de 2 points saisis.
 
-    for(int i = 0; i<nbPoint(); i++){
+    for(int i = 0; i<nbPoint() -1; i++){
         cubic.point(0, point(i));
         cubic.point(1, intermediate(i, 0));
         cubic.point(2, intermediate(i, 1));
@@ -54,14 +54,19 @@ void CatmullRomCurve::setup() {
     // A COMPLETER : il s'agit d'initialiser les points intermédiaires (les points bleus) en appelant les setters intermediate(i,0,<un Vector3>) et intermediate(i,1,<un Vector3>) )
     // les points intermédiaires doivent être fixés par la méthode vue en cours (tangentes parallèles aux segments [point(i-1),point(i+1)]).
 
+    const double k = 0.2;
 
-
-    for(int i = 1; i<nbPoint(); i++){
-        parallele = point(i+1) - point(i-1);
-
+    for(unsigned i=1; i<nbPoint()-1; i++){
+        parallele = point(i+1)-point(i-1);
+        intermediate(i-1, 1, point(i) - k*parallele);
+        intermediate(i, 0, point(i) + k*parallele);
     }
 
-
+    // premier et dernier point
+    parallele = intermediate(0,1)-point(0);
+    intermediate(0, 0, (point(0) + parallele * k));
+    parallele = intermediate(nbPoint()-2,0)-point(nbPoint()-1);
+    intermediate(nbPoint()-2, 1, (point(nbPoint()-1) + parallele * k));
 }
 
 Matrix4 CatmullRomCurve::tbn(double tValue) {
