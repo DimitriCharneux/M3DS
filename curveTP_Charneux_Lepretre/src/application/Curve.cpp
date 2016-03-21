@@ -23,7 +23,11 @@ Vector3 Curve::evalBezier(double t) {
                                           // on recopie les points de controles dans le tableau castel (castel est donc initialisé avec la première ligne de l'algo triangulaire).
 
         // A COMPLETER : appliquer la méthode de De Casteljau (évolution du tableau castel)
-
+        for(int i = castel.size(); i>0;i--){
+            for(int j = 0; j<i-1; j++){
+                castel[j] = (1.-t)*castel[j] + t*castel[j+1];
+            }
+        }
 
         // le point de la courbe en t doit se trouver dans castel[0] à la fin de l'algo
         result=castel[0];
