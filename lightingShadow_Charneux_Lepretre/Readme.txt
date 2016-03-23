@@ -8,6 +8,6 @@ Doit contenir :
 
 
 Q1 : V est la position de l'oeil, L est la position de la lumière et N la normale. Et lorsque l'on normalise les 3 variables : on les place entre 0 et 1.
-DiffuseIntensity est l'intensité de l'ombre projeté, c'est à dire que plus la valeur est élevé plus l'ombre sera sombre.
-materialDiffuse
-materialAmbient
+DiffuseIntensity l'intensité de lumière au point indiqué.
+materialDiffuse la couleur
+materialAmbient je ne sais pas
