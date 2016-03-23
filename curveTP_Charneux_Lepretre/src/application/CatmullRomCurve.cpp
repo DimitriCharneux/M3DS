@@ -79,8 +79,8 @@ Matrix4 CatmullRomCurve::tbn(double tValue) {
 
     Vector3 t=v;
     Vector3 b=v.cross(a);
-    t.normalize();
-    b.normalize();
+    //t.normalize();
+    //b.normalize();
     Vector3 n=b.cross(t);
 
     Matrix4 res;
