@@ -11,5 +11,7 @@ void main() {
 
   texCoord.xyz/=texCoord.w; // clip coordinates => ndc
 
+  texCoord.xyz = (texCoord.xyz + 1.0) / 2.0;
+
   fragColor=texture(image1,texCoord.xy);
 }

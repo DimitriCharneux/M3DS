@@ -10,12 +10,15 @@ uniform vec4 materialAmbient;
 out vec4 fColor;
 
 void main() {
-  vec3 N,V,L,R;
+    float diffuseIntensity;
+  float specularIntensity=0;
+  vec4 positionEye;
+  vec3 L,V,N,R;
   vec4 color=vec4(0,0,0,0);
 
-  fL=normalize(L);
-  fV=normalize(V);
-  fN=normalize(N);
+  L=normalize(fL);
+  V=normalize(fV);
+  N=normalize(fN);
 
   R= 2 * (dot(L,N)) * N - L;
   R= normalize(R);
@@ -26,10 +29,11 @@ void main() {
   diffuseIntensity=max(dot(N,L),0.0);
 
   // rouge, vert,bleu de l'éclairement :
-  fragColor.rgb=diffuseIntensity*materialDiffuse+materialAmbient.xyz + specularIntensity;
+  fragColor.rgb=diffuseIntensity*materialDiffuse+materialAmbient.xyz;
 
   //car Ks c'est materialSpecular et qu'il est initialisé tout seul
   fragColor.rgb = fragColor.rgb + materialSpecular * specularIntensity;
 
-  fragColor=color;
+  fragColor.a = materialAmbient.a;
+
 }
