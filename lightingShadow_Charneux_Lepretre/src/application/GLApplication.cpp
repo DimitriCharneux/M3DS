@@ -186,6 +186,13 @@ void GLApplication::update() {
 
   _textureEyeMatrix.setIdentity();
 
+  //Q6
+  //_textureEyeMatrix.translate(4,0,0);
+  //_textureEyeMatrix.rotate(_moveAngle,0,0,1);
+  //_textureEyeMatrix.scale(0.5);
+
+  //Q10
+  _textureEyeMatrix = _projectorMatrix;
 
   if (keyPressed(Qt::Key_A)) {
     _animate=!_animate;
