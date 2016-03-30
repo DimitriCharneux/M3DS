@@ -27,3 +27,5 @@ Q5.1 : Ici l'image est posé à une position précise et si cette position bouge
 Q5.2 : Ici par contre l'image n'est accroché à rien et juste fixe par rapport à la vue. L'image reste donc fixe alors que le décor derrière bouge.
 
 Q7: L'image est translaté par rapport aux différents axes en fonction des valeurs fournies.
+
+Q9: pour agrandir la taille par 2 il faut mettre 0.5, sinon on divise la taille par 2.

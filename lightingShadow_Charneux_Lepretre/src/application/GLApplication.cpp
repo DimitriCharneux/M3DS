@@ -185,9 +185,11 @@ void GLApplication::update() {
   }
 
   _textureEyeMatrix.setIdentity();
+  _textureEyeMatrix = _textureEyeMatrix.fromFrustum(-0.1,0.1,-0.1,0.1,0.1,100) * _projectorMatrix.inverse()*_camera.worldLocal();
 
-    _textureEyeMatrix.translate(-4,0,0);
-    _textureEyeMatrix.rotate(_moveAngle,1,0,0);
+//    _textureEyeMatrix.translate(-4,0,0);
+//    _textureEyeMatrix.rotate(_moveAngle,0,0,1);
+//  _textureEyeMatrix.scale(0.1);
 
   if (keyPressed(Qt::Key_A)) {
     _animate=!_animate;
