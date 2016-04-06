@@ -148,7 +148,7 @@ void GLApplication::initialize() {
 
   _rtt.create(256,256);       // création d'un Frame Buffer de 256x256 pixels
 
-  _rtt.rtt(&_depthTexture,0); // 1er paramètre = Color Buffer des pixels (donc ici la texture _depthTexture; la texture porte donc mal son nom, *pour l'instant*, puisqu'elle va être affectée avec la couleur des pixels tracés),
+  _rtt.rtt(0,&_depthTexture); // 1er paramètre = Color Buffer des pixels (donc ici la texture _depthTexture; la texture porte donc mal son nom, *pour l'instant*, puisqu'elle va être affectée avec la couleur des pixels tracés),
                               // 2ième paramètre = Depth Buffer des pixels (0 signifie qu'un depth buffer par défaut est mis en place)
                               // le Color Buffer et le Depth Buffer les dimensions fixées par _rtt.create(256,256)
 
@@ -192,7 +192,12 @@ void GLApplication::update() {
   //_textureEyeMatrix.scale(0.5);
 
   //Q10
-  _textureEyeMatrix = _projectorMatrix;
+  Matrix4 inverse = _projectorMatrix.inverse();
+
+  _textureEyeMatrix = Matrix4::fromFrustum(-0.1,0.1,-0.1,0.1,0.1,100) * inverse * _camera.worldLocal();
+
+
+
 
   if (keyPressed(Qt::Key_A)) {
     _animate=!_animate;
@@ -268,6 +273,15 @@ void GLApplication::renderToTexture() {
   glViewport(0,0,_rtt.width(),_rtt.height()); // viewport aux dimensions du frame buffer
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+  p3d::projectionMatrix=_camera.projectionMatrix().fromFrustum(-0.1,0.1,-0.1,0.1,0.1,100);
+  p3d::modelviewMatrix=_projectorMatrix.inverse();
+
+  _currentShader=&_perVertexLighting; // les tracés qui suivent se feront avec le shader _perVertexLighting (premier exercice)
+  // on trace toute la scène dans la rtt sauf le projecteur :
+  lightPosition();
+  drawGround();
+  drawEarth();
+  drawObject();
 
 
   _rtt.end(); // retour au frame buffer par défaut "normal"
@@ -459,7 +473,7 @@ void GLApplication::lightPosition() { // should be called after camera setup in 
 void GLApplication::drawIncrustation() {
   p3d::ambientColor=Vector4(1,1,1,1);
 
-  p3d::drawTexture(_depthTexture,0,0,0.3,0.3,false);
+  p3d::drawTexture(_depthTexture,0,0,0.3,0.3,true);
 
 }
 
