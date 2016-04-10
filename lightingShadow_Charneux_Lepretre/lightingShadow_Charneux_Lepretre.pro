@@ -30,9 +30,12 @@ with_glew:DEFINES+=WITH_GLEW # to check if #include <GL/glew.h> should be done (
 
 # linux config : tested on ubuntu 12/13 32bits, fedora 20 64bits
 unix:!macx:with_glew {
-    CONFIG += link_pkgconfig
-    PKGCONFIG += glew
+    #CONFIG += link_pkgconfig
+    #PKGCONFIG += glew
 }
+
+INCLUDEPATH += /usr/include/GL/
+LIBS += /usr/lib/x86_64-linux-gnu/libGLEW.so.1.10
 
 # mac os config : ** not tested **
   macx {

@@ -2,11 +2,17 @@ CHARNEUX Dimitri
 LEPRETRE Rémy
 
 Doit contenir :
-- ce que vous n'avez pas fait (et pourquoi). Précisez explicitement "tout à été fait et fonctionne parfaitement" si c'est le cas.
-- difficultés rencontrées.
-- commentaires éventuels sur le TP (points à éclaircir, longueur du sujet, etc). 
+- ce que vous n'avez pas fait (et pourquoi) :
 
--------------Exercice 1----------------------
+- difficultés rencontrées :
+	-comprendre les notions de fragColor.r et textCoord.z
+	-calcul de project _projectorMatrix
+	
+- commentaires éventuels sur le TP (points à éclaircir, longueur du sujet, etc):
+	-notion de fragColor.r non clair, cette notion n'est visible que dans l'intitulé du tp mais pas dans le code.
+	
+
+-------------Exercice 0----------------------
 Q1 : V est la position de l'oeil, L est la position de la lumière et N la normale. Et lorsque l'on normalise les 3 variables : on les place entre 0 et 1.
 DiffuseIntensity l'intensité de lumière au point indiqué.
 materialDiffuse la couleur
@@ -17,7 +23,7 @@ On ne voit pas la texture sur le fond de la scène car c'est blanc sur blanc.
 
 
 
--------------Exercice 2----------------------
+-------------Exercice 1----------------------
 Q2: avec GL_REPEAT, les coordonnées peuvent être en dehors de [0,1] du coup l'image peut apparaitre dans les 4 coins, alors qu'avec CLAMP_TO_BORDER les valeurs de s et t sont comprises uniquement entre [0,1] ce qui explique sont apparition dans le coin en haut à droite.
 
 Q4: Comme nous avons maintenant ramener les positions de la texture en [0,1] et que de base la position de l'image est également comprise entre [0,1] elle remplit donc tout l'espace.
@@ -29,3 +35,7 @@ Q5.2 : Ici par contre l'image n'est accroché à rien et juste fixe par rapport 
 Q7: L'image est translaté par rapport aux différents axes en fonction des valeurs fournies.
 
 Q9: pour agrandir la taille par 2 il faut mettre 0.5, sinon on divise la taille par 2.
+
+-------------Exercice ----------------------
+Q6 : fragColor.r est la distance entre la source lumineuse et le pixel de l'objet
+textCoord.z est la profondeur à laquelle on doit dessiner le pixel noir ou blanc lié à la source lumineuse.
