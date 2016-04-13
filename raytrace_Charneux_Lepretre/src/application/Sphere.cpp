@@ -46,10 +46,10 @@ void Sphere::intersection(const Ray &ray,IntersectionArray *result) {
          * x2 = (-b - racine(delta)) / 2a
          *
          * */
-        double x1 = (-2*a.dot(u) + sqrt(delta)) / 2*u.dot(u);
-        double x2 = (-2*a.dot(u) - sqrt(delta)) / 2*u.dot(u);
-        result->addIntersection(x1);
-        result->addIntersection(x2);
+        double x1 = (-2*a.dot(u) + sqrt(delta)) / (2*u.dot(u));
+        double x2 = (-2*a.dot(u) - sqrt(delta)) / (2*u.dot(u));
+        result->addIntersection(min(x1, x2));
+        result->addIntersection(max(x1, x2));
     }
 
 
