@@ -35,11 +35,15 @@ double randUnit() {
 void Particle::initRandom() {
 
   this->position(Vector3(randDouble(-1,1),randDouble(-1,1),0));
+<<<<<<< HEAD
     this->velocity(2.0*Vector3(randDouble(-1,1),randDouble(0,5),randDouble(-1,1)));
 
 //    this->position(Vector3(randDouble(-1,1),5.0,0));
 //    this->velocity(Vector3(0,0,0));
 
+=======
+  this->velocity(2.0*Vector3(randDouble(-1,1),randDouble(0,5),randDouble(-1,1)));
+>>>>>>> 5d598f2ef347e5f779d5133df74a2e527ae42734
   _timeOfLife=randDouble(4,10); // en secondes
 
   _color.set(randDouble(0,1),randDouble(0,1),0.8);

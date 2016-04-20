@@ -53,7 +53,11 @@ void Engine::computeForce() {
     Particle *p=(*_particleList)[i];
     if (p->alive()) {
       /* A COMPLETER : appliquer les forces subies */
+<<<<<<< HEAD
         p->addForce(Vector3(0,-(9.81*p->mass()),0));
+=======
+
+>>>>>>> 5d598f2ef347e5f779d5133df74a2e527ae42734
 
     }
   }
@@ -67,7 +71,10 @@ void Engine::computeForce() {
 
 **/
 void Engine::collisionPlane() {
+<<<<<<< HEAD
     double restitution = 0;
+=======
+>>>>>>> 5d598f2ef347e5f779d5133df74a2e527ae42734
   for(unsigned int j=0; j<_planeList.size(); j++) {
     Plane *plane=_planeList[j];
 
@@ -79,6 +86,7 @@ void Engine::collisionPlane() {
         /* A COMPLETER  : détecter collision et corriger vitesse/position */
         /* on peut utiliser p->position(), p->velocity() (et les setters), et plane->point() et plane->normal() */
         /* p->radius() donne le rayon de la particule (exercice avec les sphère). */
+<<<<<<< HEAD
         Vector3 position = p->position();
         Vector3 normal = plane->normal();
         Vector3 point = plane->point();
@@ -101,6 +109,8 @@ void Engine::collisionPlane() {
             posCorrection = (1 + restitution) * (H - p->position() + Vector3(0,p->radius(),0));
             velCorrection = (1 + restitution) * (-p->velocity());
         }
+=======
+>>>>>>> 5d598f2ef347e5f779d5133df74a2e527ae42734
 
         // appliquer les corrections calculées :
         p->addPositionCorrec(posCorrection);
@@ -132,7 +142,10 @@ double Engine::computeImpulse(Particle *p1, Particle *p2,const Vector3 &n, doubl
 
 **/
 void Engine::interCollision() {
+<<<<<<< HEAD
     double restitution = 0.4;
+=======
+>>>>>>> 5d598f2ef347e5f779d5133df74a2e527ae42734
   for(unsigned int i=0; i<_particleList->size(); i++) {
     Particle *p1=(*_particleList)[i];
     if (p1->alive()) {
@@ -145,6 +158,7 @@ void Engine::interCollision() {
           Vector3 velCorrectionP2(0,0,0); // correction en vitesse de P2
 
           /* A COMPLETER */
+<<<<<<< HEAD
           //eloignement = N = normal au point de collision
           Vector3 eloignement = p2->position() - p1->position();
           double recouvrement = (p2->position() - p1->position()).length() -p1->radius() - p2->radius();
@@ -159,6 +173,8 @@ void Engine::interCollision() {
             velCorrectionP1.add(-k/p1->mass()*eloignement);
             velCorrectionP2.add(k/p2->mass()*eloignement);
         }
+=======
+>>>>>>> 5d598f2ef347e5f779d5133df74a2e527ae42734
 
 
           // appliquer la correction éventuelle :
