@@ -3,6 +3,7 @@ LEPRETRE Rémy
 
 Doit contenir :
 - ce que vous n'avez pas fait (et pourquoi) :
+	Tout a été réalisé
 
 - difficultés rencontrées :
 	-comprendre les notions de fragColor.r et textCoord.z

@@ -30,9 +30,12 @@ with_glew:DEFINES+=WITH_GLEW # to check if #include <GL/glew.h> should be done (
 
 # linux config : tested on ubuntu 12/13 32bits, fedora 20 64bits
 unix:!macx:with_glew {
-    CONFIG += link_pkgconfig
-    PKGCONFIG += glew
+    #CONFIG += link_pkgconfig
+    #PKGCONFIG += glew
 }
+
+INCLUDEPATH += /usr/include/GL/
+LIBS += /usr/lib/x86_64-linux-gnu/libGLEW.so.1.10
 
 # mac os config : ** not tested **
   macx {
@@ -60,7 +63,6 @@ DEPENDPATH += src/application/ src/p3d/render/ src/p3d/scene/ src/p3d/gui/ src/p
 
 SOURCES += \
 	src/application/GLApplication.cpp \
-	src/p3d/render/DebugTool.cpp \
 	src/p3d/render/GLTool.cpp \
 	src/p3d/scene/Camera.cpp \
 	src/p3d/gui/Tools.cpp \
@@ -79,15 +81,13 @@ SOURCES += \
 	src/p3d/gui/GLText.cpp \
 	src/p3d/render/GLPrimitive.cpp \
 	src/p3d/render/Texture.cpp \
-	src/p3d/render/FrameBuffer.cpp \
-	src/p3d/scene/MeshObject3D.cpp \
-	src/p3d/scene/Mesh.cpp \
-	src/p3d/scene/MeshGL.cpp \
+	src/application/Engine.cpp \
+	src/application/ParticleList.cpp \
+	src/application/Particle.cpp \
 	src/p3d/gui/GLWidget.cpp \
 	src/p3d/gui/main.cpp \
 	src/p3d/gui/MainWindow.cpp
 HEADERS += \
-	src/p3d/render/DebugTool.h \
 	src/p3d/gui/Tools.h \
 	src/p3d/algebra/Vector2.h \
 	src/p3d/gui/glsupport.h \
@@ -108,26 +108,11 @@ HEADERS += \
 	src/p3d/render/GLPrimitive.h \
 	src/p3d/render/Texture.h \
 	src/application/GLApplication.h \
-	src/p3d/render/FrameBuffer.h \
-	src/p3d/scene/MeshObject3D.h \
-	src/p3d/scene/MeshGL.h \
-	src/p3d/scene/Mesh.h \
+	src/application/Engine.h \
+	src/application/ParticleList.h \
+	src/application/Particle.h \
 	src/p3d/gui/GLWidget.h \
 	src/p3d/gui/MainWindow.h
 OTHER_FILES +=\
 	media/mosaic_pierre.jpg\
-	media/al.obj\
-	media/EarthDay512.jpg\
-	media/shader/ambientTexture.frag\
-	media/shader/perPixelLighting.frag\
-	media/shader/perVertexLighting.frag\
-	media/shader/shadowMap.frag\
-	media/shader/textureTransform.frag\
-	media/shader/ambientTexture.vert\
-	media/shader/perPixelLighting.vert\
-	media/shader/perVertexLighting.vert\
-	media/shader/shadowMap.vert\
-	media/shader/textureTransform.vert\
-	media/porsche.obj\
-	media/cessna.obj\
-	media/UL1-IEEA.png
+	media/lightmap.png
