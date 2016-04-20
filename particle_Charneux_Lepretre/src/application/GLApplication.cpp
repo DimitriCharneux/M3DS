@@ -29,15 +29,9 @@ GLApplication::GLApplication() {
 
 
 
-<<<<<<< HEAD
-  _particleList.birthRate(5);
-  _particleList.maxi(2001);
-
-=======
   _particleList.birthRate(10);
   _particleList.maxi(2000);
 
->>>>>>> 5d598f2ef347e5f779d5133df74a2e527ae42734
 
   _engine.particleList(&_particleList);
   _engine.modeParticle(true);
@@ -48,24 +42,11 @@ GLApplication::GLApplication() {
 
   // des "murs" (non visibles)
 
-<<<<<<< HEAD
-
-=======
-  /*
->>>>>>> 5d598f2ef347e5f779d5133df74a2e527ae42734
   _engine.addPlane(new Plane(Vector3(-4,0,0),Vector3(1,0,0)));
   _engine.addPlane(new Plane(Vector3(4,0,0),Vector3(-1,0,0)));
   _engine.addPlane(new Plane(Vector3(0,0,-4),Vector3(0,0,1)));
   _engine.addPlane(new Plane(Vector3(0,0,4),Vector3(0,0,-1)));
-<<<<<<< HEAD
 
-
-
-=======
-  */
-
-
->>>>>>> 5d598f2ef347e5f779d5133df74a2e527ae42734
 
 
 }
@@ -223,13 +204,3 @@ void GLApplication::drawGround() {
   p3d::modelviewMatrix.pop();
 }
 
-
-
-
-
-
-<<<<<<< HEAD
-
-=======
-
->>>>>>> 5d598f2ef347e5f779d5133df74a2e527ae42734
