@@ -146,7 +146,7 @@ void GLApplication::initialize() {
   _firstPassShader=&_perVertexLighting;
   _secondPassShader=0;
 
-  _rtt.create(256,256);       // création d'un Frame Buffer de 256x256 pixels
+  _rtt.create(1024, 1024);       // création d'un Frame Buffer de 256x256 pixels
 
   _rtt.rtt(0,&_depthTexture); // 1er paramètre = Color Buffer des pixels (donc ici la texture _depthTexture; la texture porte donc mal son nom, *pour l'instant*, puisqu'elle va être affectée avec la couleur des pixels tracés),
                               // 2ième paramètre = Depth Buffer des pixels (0 signifie qu'un depth buffer par défaut est mis en place)
