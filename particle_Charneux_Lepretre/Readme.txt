@@ -9,4 +9,4 @@ Doit contenir :
 
 
 Exo3
-Q4: Il y a une instabiliter de mouvement car 2 sphères peuvent apparaître au même endroit et créer un conflit tout de suite.
+Q4: Il y a une instabilité de mouvement car 2 sphères peuvent apparaître au même endroit et créer un conflit tout de suite.

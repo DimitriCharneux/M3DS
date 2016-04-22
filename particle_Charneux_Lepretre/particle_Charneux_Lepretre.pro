@@ -34,7 +34,6 @@ unix:!macx:with_glew {
     PKGCONFIG += glew
 }
 
-
 # mac os config : ** not tested **
   macx {
     INCLUDEPATH += /opt/local/include/ /usr/include/ /usr/local/Cellar/glew/1.13.0/include/ # dernier si homebrew, si mac port rien à ajouter

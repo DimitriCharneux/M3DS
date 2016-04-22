@@ -83,6 +83,7 @@ void Engine::collisionPlane() {
         Vector3 position = p->position();
         Vector3 normal = plane->normal();
         Vector3 point = plane->point();
+        Vector3 sphere = p->position() - Vector3(0,p->radius(),0);
         double d = -(point.x()*normal.x() + point.y()*normal.y() + point.z()*normal.z());
 
         //calcul du projeté orthogonal
@@ -99,8 +100,8 @@ void Engine::collisionPlane() {
             velCorrection.add(-1 * p->velocity());*/
 
             //Exo2Q5
-            posCorrection = (1 + restitution) * (H - p->position() + Vector3(0,p->radius(),0));
-            velCorrection = (1 + restitution) * (-p->velocity());
+            posCorrection.add((1 + restitution) * (H - sphere));
+            velCorrection.add((1 + restitution) * (-p->velocity().dot(normal) * normal));
         }
 
         // appliquer les corrections calculées :
@@ -133,7 +134,7 @@ double Engine::computeImpulse(Particle *p1, Particle *p2,const Vector3 &n, doubl
 
 **/
 void Engine::interCollision() {
-    double restitution = 0.4;
+    double restitution = 0;
   for(unsigned int i=0; i<_particleList->size(); i++) {
     Particle *p1=(*_particleList)[i];
     if (p1->alive()) {
@@ -155,7 +156,7 @@ void Engine::interCollision() {
               posCorrectionP2 = -((1+restitution)*p2->mass() / (p1->mass()+p2->mass()) * recouvrement * eloignement + p2->position());
               velCorrectionP1 = -k/p1->mass()*eloignement + p1->velocity();
               velCorrectionP2 = k/p2->mass()*eloignement + p2->velocity();*/
-              posCorrectionP1.add((1+restitution)*p1->mass() / (p1->mass()+p2->mass()) * recouvrement * eloignement);
+            posCorrectionP1.add((1+restitution)*p1->mass() / (p1->mass()+p2->mass()) * recouvrement * eloignement);
             posCorrectionP2.add(-((1+restitution)*p2->mass() / (p1->mass()+p2->mass()) * recouvrement * eloignement));
             velCorrectionP1.add(-k/p1->mass()*eloignement);
             velCorrectionP2.add(k/p2->mass()*eloignement);

@@ -30,7 +30,7 @@ GLApplication::GLApplication() {
 
 
   _particleList.birthRate(10);
-  _particleList.maxi(2000);
+  _particleList.maxi(2001);
 
 
   _engine.particleList(&_particleList);
