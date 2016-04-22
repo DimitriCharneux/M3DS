@@ -9,4 +9,4 @@ Doit contenir :
 
 
 Exo3
-Q4: Il y a une instabilité de mouvement car 2 sphères peuvent apparaître au même endroit et créer un conflit tout de suite.
+Q4: Il y a une instabilité au niveau de l'animation car lorsqu'il y a un important nombre de sphères celles-ci se gènent mutuellements, s'entrechoquant et de se fait sont en perpetuels mouvement se cognant de nouveau avec une autre sphère ce qui crée une telle instabilité
