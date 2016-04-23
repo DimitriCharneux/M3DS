@@ -1,8 +1,9 @@
 Charneux Dimitri
 Leprêtre Rémy
 
+Doit contenir :
 Tout a été fait et fonctionne parfaitement.
-Les premières questions du TP sont assez difficiles 
+Les premières questions ont été assez difficile à réaliser.
 
 Ex2Q1/
 
