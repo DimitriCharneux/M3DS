@@ -79,20 +79,27 @@ void Engine::collisionPlane() {
                 /* p->radius() donne le rayon de la particule (exercice avec les sphère). */
 
                 // appliquer les corrections calculées :
-                if(p->position().y() < plane->point().y()){
+                //if(p->position().y() < plane->point().y()){
+
+                Vector3 position = p->position();
+                position.y(position.y() - p->radius());
+
+                if(Vector3(plane->point(), position).dot(plane->normal()) < 0){
                     Vector3 h = p->position(), newp;
-                    h.y(plane->point().y());
-                    double eps = 1;
+                    h.y(plane->point().y() + p->radius());
+                    double eps = 0.5;
                     newp = p->position() + (1+eps) * (h - p->position());
-                    Vector3 vit = Vector3(0,0,0);
-                    vit =-1 *  (p->velocity().dot(plane->normal()) * plane->normal());
+                    Vector3 vit = Vector3(0,0,0), vt = Vector3(0,0,0);
+                    //
+                    vt = p->velocity() - (p->velocity().dot(plane->normal())*plane->normal());
+                    vit = -1 * (p->velocity().dot(plane->normal())*plane->normal()) + vt;
                     vit.y(vit.y()* eps);
 
                     posCorrection = (newp - p->position());
                     velCorrection = (vit - p->velocity());
                 }
-                    p->addPositionCorrec(posCorrection);
-                    p->addVelocityCorrec(velCorrection);
+                p->addPositionCorrec(posCorrection);
+                p->addVelocityCorrec(velCorrection);
 
             }
 
