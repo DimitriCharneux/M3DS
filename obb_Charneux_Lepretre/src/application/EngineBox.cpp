@@ -27,10 +27,15 @@ void EngineBox::computeForce() {
     Box *b=_boxList->at(i);
 
 // A compléter
+    b->addForce(Vector3(0,b->mass()*-9.81,0));
 
   }
-
-
+    if(_cursorActive){
+        Box *b=_boxList->selected();
+        Vector3 l = _cursor - b->attachWorld();
+        b->addForce(l*10);
+        b->addMoment((l*10).cross(Vector3(_cursor,b->position())));
+    }
 }
 
 /** Gère la collision entre toutes les boites
@@ -106,6 +111,9 @@ void EngineBox::euler(double dt) {
     b->position(b->position()+dt*b->velocity());
     b->velocity(b->velocity()+dt*b->force()/b->mass());
     // à compléter
+    b->theta(b->theta() + b->omega().z()*dt);
+    //b->omega(b->omega()*Vector3((-cos(b->theta())),sin(b->theta()),0));
+    b->omega(b->omega() + b->moment()/b->inertia() * dt);
 
 
     // à laisser en fin :
