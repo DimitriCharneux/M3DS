@@ -50,6 +50,35 @@ GLApplication::GLApplication() {
   b->color(Vector3(0,1,0));
   _boxList.add(b);
 
+  // Définition troisième boite
+  b=new Box();
+  b->dimension(5,5);
+  b->position(Vector3(8,0,0));
+  b->theta(0.9);
+  b->mass(10);
+  b->computeInertia();
+  b->color(Vector3(0,1,1));
+  _boxList.add(b);
+
+
+  b=new Box();
+  b->dimension(1,1);
+  b->position(Vector3(1,0,0));
+  b->theta(0.9);
+  b->mass(0.2);
+  b->computeInertia();
+  b->color(Vector3(0,1,1));
+  _boxList.add(b);
+
+  b=new Box();
+  b->dimension(5,2);
+  b->position(Vector3(8,8,0));
+  b->theta(0.9);
+  b->mass(2);
+  b->computeInertia();
+  b->color(Vector3(0,1,1));
+  _boxList.add(b);
+
 
   _engineBox.boxList(&_boxList);
 

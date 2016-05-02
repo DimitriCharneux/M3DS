@@ -28,7 +28,7 @@ void EngineBox::computeForce() {
         b->addForce(Vector3(0,-b->mass() * 9.81,0));
 
         //frottement
-        double k = 0.1;
+        double k = 0.2;
         b->addForce(-k*b->velocity());
         b->addMoment(-b->omega());
 
@@ -63,7 +63,7 @@ void EngineBox::interCollision() {
                 b2->enableVisualEffect(1); // sert uniquement à faire un retour visuel de collision.
 
 
-                /* // début Réponse à la collision :
+                 // début Réponse à la collision :
 
         // décomposition du calcul : normal, vP1_old : vitesse du point de contact par rapport à b1, r1xN : produit vectoriel PG x normal, etc
         Vector3 normal=collisionInfo.axis();
@@ -100,7 +100,7 @@ void EngineBox::interCollision() {
 
         b1->addPositionCorrec(collisionInfo.axis()*collisionInfo.mtd());
         b2->addPositionCorrec(-collisionInfo.axis()*collisionInfo.mtd());
-        */ // fin réponse à la collision
+         // fin réponse à la collision
 
 
             }
