@@ -85,7 +85,9 @@ void Camera2::applyGL() {
 
 p3d::Vector3 Camera2::windowToNDC(int x,int y) {
   Vector3 res(0,0,0);
-
+    res.x(((x-_viewX)/_viewWidth)*2-1);
+    res.x(((y-_viewY)/_viewHeight)*2-1);
+    res.z(-1);
   cout << "window to NDC : " << res << endl;
 
   return res;
@@ -93,7 +95,7 @@ p3d::Vector3 Camera2::windowToNDC(int x,int y) {
 
 p3d::Vector3 Camera2::windowToCamera(int x,int y) {
   Vector3 res(0,0,0);
-
+    _projection.inverse();
   return res;
 }
 

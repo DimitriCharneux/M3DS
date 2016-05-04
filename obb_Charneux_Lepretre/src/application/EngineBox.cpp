@@ -27,7 +27,10 @@ void EngineBox::computeForce() {
     Box *b=_boxList->at(i);
 
 // A compléter
+    double k(0.2);
     b->addForce(Vector3(0,b->mass()*-9.81,0));
+    b->addForce(-1*b->velocity());
+    b->addMoment(-b->omega());
 
   }
     if(_cursorActive){

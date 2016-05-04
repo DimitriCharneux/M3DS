@@ -226,20 +226,22 @@ void GLApplication::moveSelectedObject() {
 
 void GLApplication::updateCamera() {
   if (left()) {
-      _camera.translate(Vector3(-0.1,0,0), Coordinate_World);
+      _camera.translate(Vector3(-0.5,0,0), Coordinate_Local);
   }
   if (right()) {
-    _camera.translate(Vector3(0.1,0,0), Coordinate_World);
+    _camera.translate(Vector3(0.5,0,0), Coordinate_Local);
   }
   if (forward()) {
-    _camera.translate(Vector3(0,0.1,0), Coordinate_World);
+    _camera.translate(Vector3(0,0,-0.5), Coordinate_Local);
   }
   if (backward()) {
-    _camera.translate(Vector3(0,-0.1,0), Coordinate_World);
+    _camera.translate(Vector3(0,0,0.5), Coordinate_Local);
   }
   if (mouseLeft()) {
     // rotate camera : deltaMouseX(), deltaMouseY() give the mouse motion
-
+      _camera.rotate(2.0,Vector3(deltaMouseY(), 0,0),Coordinate_Local);
+      _camera.rotate(2.0,Vector3(0, deltaMouseX(),0),Coordinate_World);
+//      _camera.rotate(5.0,Vector3(-deltaMouseY(), -deltaMouseX(),0),Coordinate_World);
   }
 }
 
