@@ -87,9 +87,9 @@ p3d::Vector3 Camera2::windowToNDC(int x,int y) {
     Vector3 res(0,0,0);
     // x -> width
     // ? -> 2
-
-    res.x(((_viewX *2)/_viewWidth) -1 );
-    res.x(((_viewY *2)/_viewHeight) -1 );
+    //inversion formule slide 62 cours 1
+    res.x((((x-(double)_viewX)*2.0)/(double)_viewWidth)-1);
+    res.y((((y-(double)_viewY)*2.0)/(double)_viewHeight)-1);
     res.z(-1);
     cout << "window to NDC : " << res << endl;
 
@@ -98,13 +98,15 @@ p3d::Vector3 Camera2::windowToNDC(int x,int y) {
 
 p3d::Vector3 Camera2::windowToCamera(int x,int y) {
     Vector3 res(0,0,0);
-
-
+    res = windowToNDC(x,y);
+    res = _projection.inverse().transformPoint(res);
     return res;
 }
 
 p3d::Vector3 Camera2::windowToWorld(int x,int y) {
     Vector3 res(0,0,0);
+    res = windowToCamera(x,y);
+    res = worldCamera().transformPoint(res);
 
     return res;
 }
@@ -113,6 +115,11 @@ p3d::Vector3 Camera2::windowToWorld(int x,int y) {
 p3d::Line Camera2::pickingRay(int x, int y) {
     Line res;
     // res.point(a), res.direction(u) to set the line (a and u are Vector3)
+    Vector3 p = windowToWorld(x,y);
+    Vector3 a = worldCamera().transformPoint(Vector3(0,0,0));
+
+    res.point(a);
+    res.direction(Vector3(a,p));
 
     return res;
 }

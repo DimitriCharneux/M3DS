@@ -49,8 +49,10 @@ void SceneIntersection::insert(Intersection *i) {
   Il faut :
   - d'abord déterminer si la droite intersecte le triangle (i.e. l passe du même coté des
     segments [s0s1],[s1s2],[s2s0]
-  - si la droite intersecte, calculer le lambda de l'intersection (i.e. intersection entre le plan du triangle, I=l.point()+lambda*l.direction() ).
-  Remarque : voir l'appelant intersect(MeshObject3D *mesh) pour les paramètres : traduit le rayon dans le repère local; passe les 3 sommets du triangle; s'il y a intersection, l'insère dans le tableau _result
+  - si la droite intersecte, calculer le lambda de l'intersection (i.e. intersection entre le plan du triangle,
+    I=l.point()+lambda*l.direction() ).
+  Remarque : voir l'appelant intersect(MeshObject3D *mesh) pour les paramètres : traduit le rayon dans le repère local;
+    passe les 3 sommets du triangle; s'il y a intersection, l'insère dans le tableau _result
  */
 bool SceneIntersection::intersect(const Line &ray,const Vector3 &s0,const Vector3 &s1,const Vector3 &s2,double *lambdaRes) {
     bool res=false;
