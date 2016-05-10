@@ -12,3 +12,11 @@ Pour la vidéo, si vous pouvez indiquer les touches utlisée pour faire bouger l
 Il serait utile d'afficher à quel cours correspond chaque question pour nous eviter de rechercher les formules dans tout les cours.
 
 Pour la question 1 de l'exercice 3, les coordonnées ne s'affiche pas dans le terminal.
+
+L'exercice 4 est très compliqué, merci wikipédia pour l'algorithme intersect !
+https://en.wikipedia.org/wiki/M%C3%B6ller%E2%80%93Trumbore_intersection_algorithm
+
+
+Nous nous sommes arrêtés à la question 3 de l'exercice 5 car cette question est trop difficile.
+
+

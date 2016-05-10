@@ -189,7 +189,7 @@ void GLApplication::selectObject() {
     }
     if (mouseRightPressed()) {
 
-        _sceneIntersection.intersect({&_triangle},_pickingRay);
+        _sceneIntersection.intersect({&_triangle, &_triceratops, &_cow},_pickingRay);
 
         if (_sceneIntersection.size()>0) {
 
@@ -214,6 +214,10 @@ void GLApplication::moveSelectedObject() {
             double dx=double(deltaMouseX())/100.0,dy=double(deltaMouseY())/100.0; // /100.0 to attenuate mouse motion
 
             if (_controlMouse==Manipulation_Translation) {
+                Vector3 dCamera = _camera.directionTo(Coordinate_World, Vector3(dx,dy,0));
+
+                mesh->translate(dCamera,Coordinate_Local);
+
 
             }
             else if (_controlMouse==Manipulation_Orientation) {
